@@ -4,15 +4,16 @@ function Enemies(ctx) {
     this.w = this.ctx.canvas.width / 25;
     this.h = this.w;
   
-    this.x = this.w * 2;
-    this.xMax = this.w - this.w / 20;
-    this.xMin = 0;
+    this.x0 = this.w * 2;
+    this.x = this.x0;
     this.y = this.ctx.canvas.height * 0.50 - this.h;
   
-    //this.dx = 100;
+    this.dx = this.ctx.canvas.width / 5;
+    this.dy = this.ctx.canvas.height / 15;
 
-    this.vx = 0;
-    this.vy = 10;
+
+    this.vx = 0.5;
+    this.vy = 1;
  
 
     this.img = new Image();
@@ -61,12 +62,15 @@ function Enemies(ctx) {
 
 // }
 
-
 Enemies.prototype.move = function() {
-  if(this.x === this.xMax || this.x === this.xMin) {
-    this.vx *= (-1);
-  }
   this.x += this.vx;
+
+  if (this.x + this.w/2 > this.dx ||
+      this.x < this.x0) {
+    this.y += this.dy;
+    this.vx *= -1;
+  }
+  
 
 
 if (this.drawCount % this.img.animateEvery === 0) {
