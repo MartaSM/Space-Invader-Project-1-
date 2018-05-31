@@ -3,6 +3,10 @@ function Game(canvasElement) {
 
     this.bg = new Background(this.ctx);
     this.player = new Player(this.ctx);
+    this.invader = new Enemies(this.ctx);
+    this.dx = 0;
+
+
     this.setKeyboardListeners();
 
   };
@@ -18,16 +22,29 @@ function Game(canvasElement) {
     }.bind(this), 16);
   };
   
-  
   Game.prototype.drawAll = function() {
     this.bg.draw();
     this.player.draw();
+    this.invader.draw();
+    
   };
   
+  // Game.prototype.drawInvaders = function() {
+ 
+  //   for(i=0; i<5; i++) {
+  //     clearInterval(this.intervalId);
+  //     this.invader.draw(this.invader.x + this.dx, this.invader.y)
+  //     this.dx += 100; 
+  // }
+  // };
+
   Game.prototype.moveAll = function() {
     this.player.move();
+    this.invader.move();
   };
   
+  
+
   Game.prototype.checkGameOver = function() {
     
   };
