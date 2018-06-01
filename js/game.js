@@ -3,9 +3,8 @@ function Game(canvasElement) {
 
     this.bg = new Background(this.ctx);
     this.player = new Player(this.ctx);
-    this.invader = new Enemies(this.ctx);
-    this.dx = 0;
 
+    this.enemies = new EnemiesCollection(this.ctx); 
 
     this.setKeyboardListeners();
 
@@ -18,6 +17,7 @@ function Game(canvasElement) {
       this.drawAll();
       this.moveAll();
   
+      // this.checkGameOver();
 
     }.bind(this), 16);
   };
@@ -25,37 +25,42 @@ function Game(canvasElement) {
   Game.prototype.drawAll = function() {
     this.bg.draw();
     this.player.draw();
-    this.invader.draw();
-    
+    this.enemies.draw();
   };
   
-  // Game.prototype.drawInvaders = function() {
- 
-  //   for(i=0; i<5; i++) {
-  //     clearInterval(this.intervalId);
-  //     this.invader.draw(this.invader.x + this.dx, this.invader.y)
-  //     this.dx += 100; 
-  // }
-  // };
 
   Game.prototype.moveAll = function() {
     this.player.move();
-    this.invader.move();
+    // for (i = 0; i < 8; i++) {
+    //   this.invaders[i].move();
+    // };
+    // this.invader.move();
   };
   
-  
 
-  Game.prototype.checkGameOver = function() {
-    
-  };
+  // Game.prototype.checkGameOver = function() {
+  //   // if (this.invader.y === this.ctx.canvas.height ) {
+  //   //   this.gameOver();
+  //   // }
+  // };
 
-  Game.prototype.checkWin = function() {
+  // Game.prototype.checkWin = function() {
     
-  };
+  // };
 
-  Game.prototype.checkBulletCollision = function() {
+  // Game.prototype.checkBulletCollision = function() {
+    // this.invader = this.invader.filter(function(invader, i) {
+    //   var targetInvader = this.invader.isBulletCollision(bullet);
+
+    //   if(targetInvader) {
+    //     this.invader.splice(i, 1);
+    //   }
+    // }.bind(this));
     
-  };
+  //   if(this.invader.isBulletCollision()){
+  //     return this invader
+  //   }
+  // };
   
   Game.prototype.pause = function() {
 
@@ -66,6 +71,13 @@ function Game(canvasElement) {
   };
 
   Game.prototype.gameOver = function() {
+    clearInterval(this.intervalId);
+
+  if (confirm("GAME OVER! Play again?")) {
+    location.reload();
+  }
+
+  this.score.score = 0;
    
   };
   
@@ -73,6 +85,12 @@ function Game(canvasElement) {
     this.ctx.clearRect(
       0, 0, this.ctx.canvas.width, this.ctx.canvas.height
     );
+  
+    this.player.bullets.forEach((bullet ,i) => {
+      if(bullet.x > this.ctx.canvas.height){
+        this.player.bullets.splice(i,1);
+      }
+    });
   };
   
   Game.prototype.setKeyboardListeners = function() {
