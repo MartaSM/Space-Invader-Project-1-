@@ -51,6 +51,14 @@ Player.prototype.shoot = function() {
   this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20))
 };
 
+Player.prototype.bulletsInCollision = function(invaders) {
+  this.bullets.filter(function(b) {
+   return (invaders.y + invaders.w > this.b.y)
+  })   
+};
+
+
+
 Player.prototype.LEFT = 37;
 Player.prototype.RIGHT = 39;
 Player.prototype.SHOOT = 32;

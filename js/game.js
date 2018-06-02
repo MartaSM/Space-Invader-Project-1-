@@ -2,9 +2,10 @@ function Game(canvasElement) {
     this.ctx = canvasElement.getContext("2d");
 
     this.bg = new Background(this.ctx);
+    
     this.player = new Player(this.ctx);
 
-    this.enemies = new EnemiesCollection(this.ctx); 
+    this.enemiesCollection = new EnemiesCollection(this.ctx); 
 
     this.setKeyboardListeners();
 
@@ -16,6 +17,8 @@ function Game(canvasElement) {
 
       this.drawAll();
       this.moveAll();
+
+      this.checkCollitions();
   
       // this.checkGameOver();
 
@@ -25,17 +28,34 @@ function Game(canvasElement) {
   Game.prototype.drawAll = function() {
     this.bg.draw();
     this.player.draw();
-    this.enemies.draw();
+    this.enemiesCollection.draw();
   };
   
 
   Game.prototype.moveAll = function() {
     this.player.move();
+    //this.enemiesCollection.move();
+      for (i = 0; i < 8; i++) {
+      this.enemiesCollection.invaders[i].move();
+    }
     // for (i = 0; i < 8; i++) {
     //   this.invaders[i].move();
     // };
     // this.invader.move();
   };
+
+  Game.prototype.checkCollitions = function() {
+    this.enemiesCollection.invaders.forEach(function(enemy, i) {
+      this.player.bullets.forEach(function(bullet) {
+        if (enemy.collide(bullet)) {
+          this.enemiesCollection.invaders.splice(this.enemiesCollection.invaders.indexOf(enemy), 1);
+          // TODO delete enemy: this.enemiesCollection 
+        }
+      }.bind(this));
+    }.bind(this));
+  }
+
+
   
 
   // Game.prototype.checkGameOver = function() {
@@ -87,7 +107,7 @@ function Game(canvasElement) {
     );
   
     this.player.bullets.forEach((bullet ,i) => {
-      if(bullet.x > this.ctx.canvas.height){
+      if(bullet.y > this.ctx.canvas.height){
         this.player.bullets.splice(i,1);
       }
     });

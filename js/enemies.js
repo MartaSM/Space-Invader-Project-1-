@@ -1,5 +1,4 @@
 function Enemies(ctx, x, y ) {
-  // function Enemies(ctx) {
     this.ctx = ctx;
   
     this.w = this.ctx.canvas.width / 25;
@@ -7,22 +6,6 @@ function Enemies(ctx, x, y ) {
 
     this.x = x;
     this.y = y;
-  
-    // this.x0 = x;
-    // this.x = this.x0;
-    // this.y = y;
-
-    // this.x0 = this.w * 2;
-    // this.x = this.x0;
-    // this.y = this.ctx.canvas.height * 0.50 - this.h;
-  
-    this.dx = this.ctx.canvas.width / 5;
-    this.dy = this.ctx.canvas.height / 15;
-
-
-    // this.vx = 0.5;
-    // this.vy = 1;
- 
     
     this.img = new Image();
     this.img.src = "img/invaders.png";
@@ -32,7 +15,7 @@ function Enemies(ctx, x, y ) {
    
     this.drawCount = 2;
    
-    this.bullets = [];
+    //this.bullets = [];
 
   }
   
@@ -69,13 +52,6 @@ function Enemies(ctx, x, y ) {
 
 
 Enemies.prototype.move = function() {
-//   this.x += this.vx;
-  // if (this.x + this.w/2 > this.dx ||
-  //     this.x < this.x0) {
-  //   this.y += this.dy;
-  //   this.vx *= -1;
-  // }
-  
 
 if (this.drawCount % this.img.animateEvery === 0) {
   this.animate();
@@ -91,6 +67,19 @@ Enemies.prototype.animate = function() {
     this.img.frameIndex = 0;
   }
 };
+
+Enemies.prototype.collide = function(object) {
+
+  if ((this.y + this.h) > object.y &&
+      this.x < object.x &&
+      this.x + this.w > object.x + object.w) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
 
 // Enemies.prototype.drawBullets = function() {
 //   this.drawCount++;
@@ -128,10 +117,6 @@ Enemies.prototype.animate = function() {
 // })
 // };
 
-Enemies.prototype.isBulletCollision = function(bullet) {
-  return this.invader.find(function() {
-    return this.invader.y > this.bullet.y + this.invader.h;
-  })
-};
+
 
 

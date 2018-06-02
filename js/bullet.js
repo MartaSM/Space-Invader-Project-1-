@@ -29,6 +29,6 @@ function Bullet(ctx, x, y) {
   
   Bullet.prototype.move = function() {
     this.y += this.vy;
-  
-
   };
+
+  
