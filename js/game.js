@@ -19,7 +19,7 @@ function Game(canvasElement) {
       this.moveAll();
 
       this.checkCollitions();
-  
+
       // this.checkGameOver();
 
     }.bind(this), 16);
@@ -38,18 +38,13 @@ function Game(canvasElement) {
       for (i = 0; i < 8; i++) {
       this.enemiesCollection.invaders[i].move();
     }
-    // for (i = 0; i < 8; i++) {
-    //   this.invaders[i].move();
-    // };
-    // this.invader.move();
   };
 
   Game.prototype.checkCollitions = function() {
     this.enemiesCollection.invaders.forEach(function(enemy, i) {
       this.player.bullets.forEach(function(bullet) {
         if (enemy.collide(bullet)) {
-          this.enemiesCollection.invaders.splice(this.enemiesCollection.invaders.indexOf(enemy), 1);
-          // TODO delete enemy: this.enemiesCollection 
+          this.enemiesCollection.invaders.splice(i, 1);
         }
       }.bind(this));
     }.bind(this));

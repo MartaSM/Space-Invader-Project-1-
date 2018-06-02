@@ -1,4 +1,4 @@
-function Bullet(ctx, x, y) {
+function Bullet(ctx, x, y, vy) {
     this.ctx = ctx;
 
     this.w = 5;
@@ -10,7 +10,7 @@ function Bullet(ctx, x, y) {
     this.img = new Image();
     this.img.src = "./img/player.png";
   
-    this.vy = -5;
+    this.vy = vy;
   }
   
   Bullet.prototype.draw = function() {

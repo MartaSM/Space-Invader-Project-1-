@@ -48,7 +48,7 @@ if (this.x + this.w >= this.ctx.canvas.width){
 };
 
 Player.prototype.shoot = function() {
-  this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20))
+  this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20, -5))
 };
 
 Player.prototype.bulletsInCollision = function(invaders) {

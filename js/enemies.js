@@ -11,11 +11,11 @@ function Enemies(ctx, x, y ) {
     this.img.src = "img/invaders.png";
     this.img.frames = 2;
     this.img.frameIndex = 0;
-    this.img.animateEvery = 20;
+    this.img.animateEvery = 25;
    
-    this.drawCount = 2;
+    this.drawCount = 0;
    
-    //this.bullets = [];
+    this.bullets = [];
 
   }
   
@@ -33,7 +33,10 @@ function Enemies(ctx, x, y ) {
     );
 
     this.drawCount++;
+
+    this.drawBullets();
 };
+
 
 
 
@@ -57,6 +60,10 @@ if (this.drawCount % this.img.animateEvery === 0) {
   this.animate();
   this.drawCount = 0;
 } 
+this.bullets.forEach(function(b) {
+  b.move();
+})
+
 };
 
 
@@ -80,42 +87,43 @@ Enemies.prototype.collide = function(object) {
 }
 
 
+Enemies.prototype.drawBullets = function() {
+  
+  this.drawCount++;
 
-// Enemies.prototype.drawBullets = function() {
-//   this.drawCount++;
+  this.generateBullets();
+  this.bullets.forEach(function(b) {
+    b.draw();
+  });
 
-//   this.generateBullets();
+  this.cleanBullets();
+};
 
-//   this.bullets.forEach(function(b) {
-//     b.draw();
-//   });
+Enemies.prototype.generateBullets = function() {
+var max = 80,
+    min = 40;
 
-//   this.cleanBullets();
-// };
+var random = Math.floor(Math.random() * (max - min + 1) + min);
 
-// Enemies.prototype.generateBullets = function() {
-// var max = 100,
-//     min = 50;
+if (this.drawCount % random === 0) {
+this.drawCount = 0;
 
-// var random = Math.floor(Math.random() * (max - min + 1) + min);
+this.bullets.push(
+new Bullet(this.ctx, this.x + this.w / 2, this.y + this.h / 2, 5)
+);
 
-// if (this.drawCount % random === 0) {
-// this.drawCount = 0;
+// this.bullets.vy *= (-1);
+}
+};
 
-// this.bullets.push(
-// new Bullet(this.ctx, this.x + this.w / 2, this.y - 20)
-// );
-// this.bullets.vx *= (-1);
-// }
-// };
 
-// Enemies.prototype.cleanBullets = function() {
-// this.bullets.forEach((b ,i) => {
-//   if(b.y < 0){
-//     this.bullets.splice(i,1);
-//   }
-// })
-// };
+Enemies.prototype.cleanBullets = function() {
+this.bullets.forEach((b ,i) => {
+  if(b.y > this.ctx.canvas.height){
+    this.bullets.splice(i,1);
+  }
+})
+};
 
 
 
