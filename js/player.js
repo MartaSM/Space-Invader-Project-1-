@@ -57,6 +57,17 @@ Player.prototype.bulletsInCollision = function(invaders) {
   })   
 };
 
+Player.prototype.collide = function(object) {
+  console.log(this.w, '|||', object.y - object.h, object.x - object.w)
+  if (this.y <= object.y + object.h &&
+      this.x <= object.x - object.w && 
+      this.x + this.w >= object.x + object.w) {
+    return true;
+  } else {
+    return false;
+  }
+ }
+
 
 
 Player.prototype.LEFT = 37;

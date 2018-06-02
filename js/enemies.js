@@ -111,18 +111,16 @@ this.drawCount = 0;
 this.bullets.push(
 new Bullet(this.ctx, this.x + this.w / 2, this.y + this.h / 2, 5)
 );
-
-// this.bullets.vy *= (-1);
 }
 };
 
 
 Enemies.prototype.cleanBullets = function() {
-this.bullets.forEach((b ,i) => {
-  if(b.y > this.ctx.canvas.height){
-    this.bullets.splice(i,1);
-  }
-})
+  this.bullets.forEach((b ,i) => {
+    if(b.y > this.ctx.canvas.height){
+      this.bullets.splice(i,1);
+    }
+  })
 };
 
 
