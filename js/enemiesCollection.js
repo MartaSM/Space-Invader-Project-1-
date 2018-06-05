@@ -16,18 +16,18 @@ function EnemiesCollection(ctx) {
     this.dy = this.ctx.canvas.height / 1;
 
     this.drawCount = 0;
+
+    this.generateInvaders();
     
 };
 
 EnemiesCollection.prototype.draw = function() {
     this.drawCount++;
     
-    this.generateInvaders();
-
-    for (i = 0; i < 8; i++) {
+    for (i = 0; i < this.invaders.length; i++) {
         this.invaders[i].draw();
     }
-    this.cleanInvaders();
+  
 
 };
 
@@ -45,18 +45,9 @@ EnemiesCollection.prototype.move = function() {
 
 EnemiesCollection.prototype.generateInvaders = function() {
     for (i = 0; i < 8; i++) {
-        this.invaders.push(new Enemies(this.ctx, this.x + this.distX, this.y));
+        this.invaders.push(new Enemy(this.ctx, this.x + this.distX, this.y));
         this.distX += 150;
     }
-};
-
-EnemiesCollection.prototype.cleanInvaders = function() {
-        if(this.drawCount % 2 === 0){
-            for (i = 0; i < 8; i++) {
-          this.invaders.splice(8,8);
-          this.drawCount = 0;
-            }
-        }
 };
 
 

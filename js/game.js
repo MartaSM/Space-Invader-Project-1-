@@ -20,6 +20,8 @@ function Game(canvasElement) {
 
       this.checkCollitions();
 
+      this.checkWin();
+
       this.checkGameOver();
 
     }.bind(this), 16);
@@ -35,7 +37,7 @@ function Game(canvasElement) {
   Game.prototype.moveAll = function() {
     this.player.move();
     //this.enemiesCollection.move();
-      for (i = 0; i < 8; i++) {
+      for (i = 0; i < this.enemiesCollection.invaders.length; i++) {
       this.enemiesCollection.invaders[i].move();
     }
   
@@ -50,8 +52,6 @@ function Game(canvasElement) {
       }.bind(this));
     }.bind(this));
   }
-
-
   
 
   Game.prototype.checkGameOver = function() {
@@ -63,9 +63,11 @@ function Game(canvasElement) {
       }.bind(this));
     }.bind(this));
   }
-  // Game.prototype.checkWin = function() {
-    
-  // };
+  Game.prototype.checkWin = function() {
+    if(this.enemiesCollection.invaders.length === 0){
+      this.win();
+    }
+   };
 
   // Game.prototype.checkBulletCollision = function() {
     // this.invader = this.invader.filter(function(invader, i) {
@@ -86,7 +88,13 @@ function Game(canvasElement) {
   };
 
   Game.prototype.win = function() {
-   
+    clearInterval(this.intervalId);
+
+    if (confirm("CONGRATULATION! You win")) {
+      location.reload();
+    }
+  
+    this.score.score = 0;
   };
 
   Game.prototype.gameOver = function() {
