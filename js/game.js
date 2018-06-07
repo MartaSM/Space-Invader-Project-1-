@@ -24,8 +24,8 @@ function Game(canvasElement) {
 
       this.checkGameOver();
 
-      this.checkGameOver2();
-
+       this.checkGameOver2();
+console.log(this.checkEnd());
     }.bind(this), 16);
   };
   
@@ -39,34 +39,45 @@ function Game(canvasElement) {
   Game.prototype.moveAll = function() {
     this.player.move();
     this.enemiesCollection.move();
-      for (i = 0; i < this.enemiesCollection.invaders.length; i++) {
-      this.enemiesCollection.invaders[i].move();
-    }
-  
+    this.enemiesCollection.invaders.forEach(function(row) {
+      row.forEach(function(enemy) {
+        enemy.move();
+      })
+    })
   };
 
+
+
   Game.prototype.checkCollitions = function() {
-    this.enemiesCollection.invaders.forEach(function(enemy, i) {
-      this.player.bullets.forEach(function(bullet) {
-        if (enemy.collide(bullet)) {
-          this.enemiesCollection.invaders.splice(i, 1);
-        }
+    this.enemiesCollection.invaders.forEach(function(row) {
+      row.forEach(function(enemy, i) {
+        this.player.bullets.forEach(function(bullet) {
+          if (enemy.collide(bullet)) {
+            row.splice(i, 1);
+          }
+        }.bind(this));
       }.bind(this));
-    }.bind(this));
+      }.bind(this));
   }
 
   Game.prototype.checkEnd = function() {
-    return this.enemiesCollection.invaders.some(function(enemy, index, array) {
-      return enemy.y >= this.player.y - this.player.h;
+    var check = false;
+    this.enemiesCollection.invaders.forEach(function(row) {
+      check = row.some(function(enemy, index, array) {
+        return enemy.y >= (this.player.y - this.player.h);
+      }.bind(this));
     }.bind(this));
+    return check;
 }
 
   Game.prototype.checkGameOver = function() {
-    this.enemiesCollection.invaders.forEach(function(e) {
-      e.bullets.forEach(function(bullet) {
-        if (this.player.collide(bullet)) {
-          this.gameOver();
-        }
+    this.enemiesCollection.invaders.forEach(function(row) {
+      row.forEach(function(enemy) {
+        enemy.bullets.forEach(function(bullet) {
+          if (this.player.collide(bullet)) {
+            this.gameOver();
+          }
+        }.bind(this));
       }.bind(this));
     }.bind(this));
   }
@@ -78,24 +89,15 @@ function Game(canvasElement) {
   }
 
   Game.prototype.checkWin = function() {
-    if(this.enemiesCollection.invaders.length === 0){
-      this.win();
-    }
+    this.enemiesCollection.invaders.forEach(function(row, i) {
+        if(row.length === 0) {
+          this.enemiesCollection.invaders.splice(i, 1);
+        }
+        if (this.enemiesCollection.invaders.length === 0) {
+          this.win();
+        }
+    }.bind(this));
    };
-
-  // Game.prototype.checkBulletCollision = function() {
-    // this.invader = this.invader.filter(function(invader, i) {
-    //   var targetInvader = this.invader.isBulletCollision(bullet);
-
-    //   if(targetInvader) {
-    //     this.invader.splice(i, 1);
-    //   }
-    // }.bind(this));
-    
-  //   if(this.invader.isBulletCollision()){
-  //     return this invader
-  //   }
-  // };
   
   Game.prototype.pause = function() {
 

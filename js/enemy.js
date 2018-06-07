@@ -40,20 +40,6 @@ function Enemy(ctx, x, y ) {
 
 
 
-// Enemy.prototype.deleteInvader = function() {
-// if (isBulletCollision()){
-
-// }
-//   this.img = null;
-// };
-
-// Enemies.prototype.deleteInvader = function(invaderToDelete) {
-//   this.invaders = this.obstacles.filter(function(o) {
-//     return o !== obstacleToDelete; 
-//   });
-// }
-
-
 Enemy.prototype.move = function() {
 
 if (this.drawCount % this.img.animateEvery === 0) {
