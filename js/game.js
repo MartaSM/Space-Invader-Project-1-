@@ -24,6 +24,8 @@ function Game(canvasElement) {
 
       this.checkGameOver();
 
+      this.checkGameOver2();
+
     }.bind(this), 16);
   };
   
@@ -36,7 +38,7 @@ function Game(canvasElement) {
 
   Game.prototype.moveAll = function() {
     this.player.move();
-    //this.enemiesCollection.move();
+    this.enemiesCollection.move();
       for (i = 0; i < this.enemiesCollection.invaders.length; i++) {
       this.enemiesCollection.invaders[i].move();
     }
@@ -52,7 +54,12 @@ function Game(canvasElement) {
       }.bind(this));
     }.bind(this));
   }
-  
+
+  Game.prototype.checkEnd = function() {
+    return this.enemiesCollection.invaders.some(function(enemy, index, array) {
+      return enemy.y >= this.player.y - this.player.h;
+    }.bind(this));
+}
 
   Game.prototype.checkGameOver = function() {
     this.enemiesCollection.invaders.forEach(function(e) {
@@ -63,6 +70,13 @@ function Game(canvasElement) {
       }.bind(this));
     }.bind(this));
   }
+
+  Game.prototype.checkGameOver2 = function() {
+    if(this.checkEnd()) {
+      this.gameOver();
+    }
+  }
+
   Game.prototype.checkWin = function() {
     if(this.enemiesCollection.invaders.length === 0){
       this.win();
@@ -107,7 +121,8 @@ function Game(canvasElement) {
   this.score.score = 0;
    
   };
-  
+
+
   Game.prototype.clear = function() {
     this.ctx.clearRect(
       0, 0, this.ctx.canvas.width, this.ctx.canvas.height
