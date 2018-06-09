@@ -7,7 +7,7 @@ function Score(ctx) {
   }
   
   Score.prototype.draw = function() {
-    this.ctx.font = "40px Verdana";
+    this.ctx.font = "50px Verdana";
     this.ctx.fillText("Score " + Math.floor(this.score), this.x, this.y);
     this.ctx.fillStyle = "white";
   };

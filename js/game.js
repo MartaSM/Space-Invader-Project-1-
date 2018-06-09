@@ -9,7 +9,6 @@ function Game(canvasElement) {
 
     this.score = new Score(this.ctx);
   
-    console.log(this.player.lives);
     this.setKeyboardListeners();
 
   };
@@ -17,6 +16,8 @@ function Game(canvasElement) {
   Game.prototype.start = function() {
     this.intervalId = setInterval(function() {
       this.clear();
+      console.log(this.player.bullets);
+
 
       this.drawAll();
       this.moveAll();
@@ -27,7 +28,7 @@ function Game(canvasElement) {
 
       this.checkGameOver();
 
-       this.checkGameOver2();
+      this.checkGameOver2();
     }.bind(this), 16);
   };
   
@@ -51,6 +52,9 @@ function Game(canvasElement) {
     })
   };
 
+  Game.prototype.pause = function() {
+    clearInterval(this.intervalId);
+  }
 
 
   Game.prototype.checkCollitions = function() {
@@ -76,17 +80,25 @@ function Game(canvasElement) {
     return check;
 }
 
+
   Game.prototype.checkGameOver = function() {
     this.enemiesCollection.invaders.forEach(function(row) {
       row.forEach(function(enemy) {
-        enemy.bullets.forEach(function(bullet) {
+        enemy.bullets.forEach(function(bullet, i) {
           if (this.player.collide(bullet)) {
-            this.gameOver();
+            enemy.bullets.splice(i, 1);
+            if(this.player.lives.length === 1) {
+              this.gameOver();
+            } else {
+              this.player.lifeCounter -= 1;
+              this.loseLife();
+            }
           }
         }.bind(this));
       }.bind(this));
     }.bind(this));
   }
+
 
   Game.prototype.checkGameOver2 = function() {
     if(this.checkEnd()) {
@@ -107,7 +119,7 @@ function Game(canvasElement) {
 
 
   Game.prototype.win = function() {
-    clearInterval(this.intervalId);
+    pauseInterval(this.intervalId);
 
     if (confirm("CONGRATULATION! You win")) {
       location.reload();
@@ -116,10 +128,22 @@ function Game(canvasElement) {
     this.score.score = 0;
   };
 
+  Game.prototype.loseLife = function() {
+    this.player.lives.splice(0,1);
+    clearInterval(this.intervalId);
+    this.player.vx = 0;
+    alert("You lose one life. Lifes: " + this.player.lifeCounter);
+
+    
+    this.start();
+  
+  
+  };
+
   Game.prototype.gameOver = function() {
     clearInterval(this.intervalId);
 
-  if (confirm("GAME OVER! Play again?")) {
+  if (confirm("GAME OVER! Your score is: " + this.score.score + "\nPlay again?")) {
     location.reload();
   }
 

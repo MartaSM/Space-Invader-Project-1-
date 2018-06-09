@@ -17,6 +17,7 @@ function Player(ctx) {
 
     this.lives = [];
     this.playerLives();
+    this.lifeCounter = 3;
 
   }
   
@@ -37,6 +38,8 @@ function Player(ctx) {
       b.draw();
       b.move();
     });
+
+    this.cleanBullets();
 }
 
 
@@ -55,14 +58,11 @@ Player.prototype.shoot = function() {
   this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20, -5))
 };
 
-Player.prototype.bulletsInCollision = function(invaders) {
-  this.bullets.filter(function(b) {
-   return (invaders.y + invaders.w > this.b.y)
-  })   
-};
+
 
 Player.prototype.collide = function(object) {
   if (this.y <= object.y + object.h &&
+      this.y + this.h/2 >= object.y &&
       this.x <= object.x - object.w && 
       this.x + this.w >= object.x + object.w) {
     return true;
@@ -74,17 +74,24 @@ Player.prototype.collide = function(object) {
  Player.prototype.playerLives = function() {
    var distX = 0;
     for(i = 0; i < 3; i++) {
-      this.lives.push(new Life(this.ctx, this.ctx.canvas.width * 0.5 + distX, this.ctx.canvas.height * 0.2));
-      distX += 10;
+      this.lives.push(new Life(this.ctx, this.ctx.canvas.width * 0.8 + distX));
+      distX += 60;
   };
  };
 
  Player.prototype.playerLivesDraw = function() {
-
    this.lives.forEach(function(l) {
      l.draw();
    })
  }
+
+ Player.prototype.cleanBullets = function() {
+  this.bullets.forEach((b ,i) => {
+    if(b.y < 0){
+      this.bullets.splice(i,1);
+    }
+  })
+};
 
 Player.prototype.LEFT = 37;
 Player.prototype.RIGHT = 39;

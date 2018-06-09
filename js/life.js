@@ -1,11 +1,11 @@
-function Life(ctx, x, y) {
+function Life(ctx, x) {
     this.ctx = ctx;
   
-    this.w = this.ctx.canvas.width / 25;
+    this.w = this.ctx.canvas.width / 40;
     this.h = this.w * 1.5;
   
-    this.x = this.x;
-    this.y = this.y;
+    this.x = x;
+    this.y = this.ctx.canvas.height * 0.08;
 
     this.img = new Image();
     this.img.src = "img/player.png";
