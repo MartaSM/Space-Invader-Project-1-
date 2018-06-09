@@ -7,6 +7,9 @@ function Game(canvasElement) {
 
     this.enemiesCollection = new EnemiesCollection(this.ctx);
 
+    this.score = new Score(this.ctx);
+  
+    console.log(this.player.lives);
     this.setKeyboardListeners();
 
   };
@@ -25,7 +28,6 @@ function Game(canvasElement) {
       this.checkGameOver();
 
        this.checkGameOver2();
-console.log(this.checkEnd());
     }.bind(this), 16);
   };
   
@@ -33,6 +35,9 @@ console.log(this.checkEnd());
     this.bg.draw();
     this.player.draw();
     this.enemiesCollection.draw();
+    this.score.draw();
+    this.player.playerLivesDraw();
+
   };
   
 
@@ -54,6 +59,7 @@ console.log(this.checkEnd());
         this.player.bullets.forEach(function(bullet) {
           if (enemy.collide(bullet)) {
             row.splice(i, 1);
+            this.score.increaseScore();
           }
         }.bind(this));
       }.bind(this));
@@ -64,7 +70,7 @@ console.log(this.checkEnd());
     var check = false;
     this.enemiesCollection.invaders.forEach(function(row) {
       check = row.some(function(enemy, index, array) {
-        return enemy.y >= (this.player.y - this.player.h);
+        return enemy.y >= (this.player.y - 110);
       }.bind(this));
     }.bind(this));
     return check;
@@ -98,10 +104,7 @@ console.log(this.checkEnd());
         }
     }.bind(this));
    };
-  
-  Game.prototype.pause = function() {
 
-  };
 
   Game.prototype.win = function() {
     clearInterval(this.intervalId);

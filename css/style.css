@@ -1,9 +1,3 @@
 canvas{
     border-style: solid;
 }
-
-#score {
-    color: white;
-    position: fixed;
-    float:left;
-}

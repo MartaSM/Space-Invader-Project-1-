@@ -14,6 +14,10 @@ function Player(ctx) {
     this.img.src = "img/player.png";
 
     this.bullets = [];
+
+    this.lives = [];
+    this.playerLives();
+
   }
   
   Player.prototype.draw = function() {
@@ -67,7 +71,20 @@ Player.prototype.collide = function(object) {
   }
  }
 
+ Player.prototype.playerLives = function() {
+   var distX = 0;
+    for(i = 0; i < 3; i++) {
+      this.lives.push(new Life(this.ctx, this.ctx.canvas.width * 0.5 + distX, this.ctx.canvas.height * 0.2));
+      distX += 10;
+  };
+ };
 
+ Player.prototype.playerLivesDraw = function() {
+
+   this.lives.forEach(function(l) {
+     l.draw();
+   })
+ }
 
 Player.prototype.LEFT = 37;
 Player.prototype.RIGHT = 39;

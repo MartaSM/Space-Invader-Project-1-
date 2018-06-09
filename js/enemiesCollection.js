@@ -20,7 +20,6 @@ function EnemiesCollection(ctx) {
     this.drawCount = 0;
 
     this.generateInvaders();    
-    console.log(this.invaders);
 };
 
 EnemiesCollection.prototype.draw = function() {
@@ -39,7 +38,7 @@ EnemiesCollection.prototype.move = function() {
     // for(i = 0; i < this.invaders.length; i++){
     //     this.invaders[i].x += this.vx;
     // }
-    if(this.drawCount % 20 === 0){
+    if(this.drawCount % 60 === 0){
         for(i = 0; i < this.invaders.length; i++){
             var row = this.invaders[i];
             for(j = 0; j < row.length; j++) {
