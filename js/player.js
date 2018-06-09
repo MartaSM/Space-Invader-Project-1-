@@ -18,7 +18,6 @@ function Player(ctx) {
     this.lives = [];
     this.playerLives();
     this.lifeCounter = 3;
-
   }
   
   Player.prototype.draw = function() {
@@ -58,10 +57,8 @@ Player.prototype.shoot = function() {
   this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20, -5))
 };
 
-
-
 Player.prototype.collide = function(object) {
-  if (this.y <= object.y + object.h &&
+  if (this.y + this.h / 3 <= object.y + object.h &&
       this.y + this.h/2 >= object.y &&
       this.x <= object.x - object.w && 
       this.x + this.w >= object.x + object.w) {
@@ -70,6 +67,7 @@ Player.prototype.collide = function(object) {
     return false;
   }
  }
+
 
  Player.prototype.playerLives = function() {
    var distX = 0;
@@ -97,6 +95,7 @@ Player.prototype.LEFT = 37;
 Player.prototype.RIGHT = 39;
 Player.prototype.SHOOT = 32;
 
+
 Player.prototype.onKeyDown = function(code) {
   switch(code) {
     case this.RIGHT:
@@ -118,4 +117,5 @@ Player.prototype.onKeyUp = function(code) {
       this.vx = 0;
       break;
   }
+
 };

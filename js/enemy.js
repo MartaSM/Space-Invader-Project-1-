@@ -103,7 +103,7 @@ new Bullet(this.ctx, this.x + this.w / 2, this.y + this.h / 2, 5)
 
 Enemy.prototype.cleanBullets = function() {
   this.bullets.forEach((b ,i) => {
-    if(b.y > this.ctx.canvas.height){
+    if(b.y > 650){
       this.bullets.splice(i,1);
     }
   })

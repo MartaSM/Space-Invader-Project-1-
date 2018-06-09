@@ -8,16 +8,17 @@ function Game(canvasElement) {
     this.enemiesCollection = new EnemiesCollection(this.ctx);
 
     this.score = new Score(this.ctx);
+
+    this.elementPause = new Pause(this.ctx);
   
     this.setKeyboardListeners();
+
 
   };
   
   Game.prototype.start = function() {
     this.intervalId = setInterval(function() {
       this.clear();
-      console.log(this.player.bullets);
-
 
       this.drawAll();
       this.moveAll();
@@ -29,6 +30,7 @@ function Game(canvasElement) {
       this.checkGameOver();
 
       this.checkGameOver2();
+
     }.bind(this), 16);
   };
   
@@ -53,7 +55,14 @@ function Game(canvasElement) {
   };
 
   Game.prototype.pause = function() {
-    clearInterval(this.intervalId);
+    if(this.elementPause.inPause) {
+      this.start();
+      this.elementPause.inPause = false;
+    } else {
+      clearInterval(this.intervalId);
+      this.elementPause.draw();
+      this.elementPause.inPause = true;
+    }
   }
 
 
@@ -119,7 +128,7 @@ function Game(canvasElement) {
 
 
   Game.prototype.win = function() {
-    pauseInterval(this.intervalId);
+    clearInterval(this.intervalId);
 
     if (confirm("CONGRATULATION! You win")) {
       location.reload();
@@ -133,11 +142,8 @@ function Game(canvasElement) {
     clearInterval(this.intervalId);
     this.player.vx = 0;
     alert("You lose one life. Lifes: " + this.player.lifeCounter);
-
     
     this.start();
-  
-  
   };
 
   Game.prototype.gameOver = function() {
@@ -163,13 +169,37 @@ function Game(canvasElement) {
       }
     });
   };
+
+  Game.prototype.PAUSE = 27;
+
+  Game.prototype.onKeyDown = function(code) {
+    switch(code) {
+      case this.PAUSE:
+        this.pause();
+        break;
+    }
+  };
+  
+  // Game.prototype.onKeyUp = function(code) {
+  //   switch(code) {
+  //     case this.PAUSE:
+  //       this.pause();
+  //       if(this.elementPause.inPause) {
+  //         this.elementPause.inPause = false;
+  //       } else {
+  //         this.elementPause.inPause = true;
+  //       }
+  //   }
+  // };
   
   Game.prototype.setKeyboardListeners = function() {
     document.onkeydown = function(event) {
       this.player.onKeyDown(event.keyCode);
+      this.onKeyDown(event.keyCode);
     }.bind(this);
   
     document.onkeyup = function(event) {
       this.player.onKeyUp(event.keyCode);
+      // this.onKeyUp(event.keyCode);
     }.bind(this);
   };
