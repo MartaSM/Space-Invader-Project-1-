@@ -14,11 +14,15 @@ function Player(ctx) {
     this.img.src = "img/player.png";
 
     this.bullets = [];
+ 
 
     this.lives = [];
     this.playerLives();
     this.lifeCounter = 3;
-  }
+
+    this.audio = document.createElement("audio")
+    this.audio.src = "sounds/shoot.wav";
+  };
   
   Player.prototype.draw = function() {
     this.ctx.drawImage(
@@ -54,8 +58,10 @@ if (this.x + this.w >= this.ctx.canvas.width){
 };
 
 Player.prototype.shoot = function() {
-  this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20, -5))
+    this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20, -5));
+    this.audio.play();
 };
+
 
 Player.prototype.collide = function(object) {
   if (this.y + this.h / 3 <= object.y + object.h &&
@@ -105,7 +111,6 @@ Player.prototype.onKeyDown = function(code) {
       this.vx = -5 ;
       break;
     case this.SHOOT:
-      this.shoot();
       break;
   }
 };
@@ -116,6 +121,8 @@ Player.prototype.onKeyUp = function(code) {
     case this.LEFT:
       this.vx = 0;
       break;
+    case this.SHOOT:
+      this.shoot();
+      break;
   }
-
 };

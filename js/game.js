@@ -31,6 +31,7 @@ function Game(canvasElement) {
 
       this.checkGameOver2();
 
+
     }.bind(this), 16);
   };
   
