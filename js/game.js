@@ -31,6 +31,8 @@ function Game(canvasElement) {
 
       this.checkGameOver2();
 
+      console.log(this.player.shootControl)
+
 
     }.bind(this), 16);
   };

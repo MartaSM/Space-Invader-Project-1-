@@ -14,6 +14,7 @@ function Player(ctx) {
     this.img.src = "img/player.png";
 
     this.bullets = [];
+    this.shootControl = true;
  
 
     this.lives = [];
@@ -25,6 +26,7 @@ function Player(ctx) {
 
     this.audioDead = document.createElement("audio")
     this.audioDead.src = "sounds/explosion.wav";
+    
   };
   
   Player.prototype.draw = function() {
@@ -60,15 +62,21 @@ if (this.x + this.w >= this.ctx.canvas.width){
 }
 };
 
-Player.prototype.shoot = function() {
-    this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20, -5));
-    this.audioShoot.play();
+Player.prototype.shoot = function() { 
+  this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20, -5));
+  this.audioShoot.play();
+  // this.shootControlTime();
 };
 
+// Player.prototype.shootControlTime = function() {
+//   setTimeout(function(){ 
+//     this.shootControl = !this.shootControl; 
+//   }, 1000);
+// }
 
 Player.prototype.collide = function(object) {
   if (this.y + this.h / 3 <= object.y + object.h &&
-      this.y + this.h/2 >= object.y &&
+      this.y + this.h / 2 >= object.y &&
       this.x <= object.x - object.w && 
       this.x + this.w >= object.x + object.w) {
     return true;
@@ -113,8 +121,14 @@ Player.prototype.onKeyDown = function(code) {
     case this.LEFT:
       this.vx = -5 ;
       break;
-    case this.SHOOT:
-      break;
+        //  
+      // if(this.shootControl){
+      //   this.shootControl = false; 
+      //   this.shoot();
+      // } else {
+      //   break;
+      // }
+      // break;
   }
 };
 
