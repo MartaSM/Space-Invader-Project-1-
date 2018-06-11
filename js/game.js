@@ -10,6 +10,8 @@ function Game(canvasElement) {
     this.score = new Score(this.ctx);
 
     this.elementPause = new Pause(this.ctx);
+
+    //this.gameOverPicture = new GameOver(this.ctx);
   
     this.setKeyboardListeners();
 
@@ -30,9 +32,6 @@ function Game(canvasElement) {
       this.checkGameOver();
 
       this.checkGameOver2();
-
-      console.log(this.player.shootControl)
-
 
     }.bind(this), 16);
   };
@@ -133,12 +132,13 @@ function Game(canvasElement) {
 
   Game.prototype.win = function() {
     clearInterval(this.intervalId);
+    this.gameOverPicture.draw();
 
-    if (confirm("CONGRATULATION! You win")) {
-      location.reload();
-    }
+    // if (confirm("CONGRATULATION! You win")) {
+    //   location.reload();
+    // }
   
-    this.score.score = 0;
+    // this.score.score = 0;
   };
 
   Game.prototype.loseLife = function() {

@@ -1,4 +1,4 @@
-function Enemy(ctx, x, y ) {
+function Enemy(ctx, x, y) {
     this.ctx = ctx;
   
     this.w = this.ctx.canvas.width / 25;
@@ -85,10 +85,10 @@ Enemy.prototype.drawBullets = function() {
 };
 
 Enemy.prototype.generateBullets = function() {
-var max = 80,
-    min = 40;
+var r = 5000;
+    
 
-var random = Math.floor(Math.random() * (max - min + 1) + min);
+var random = Math.floor(Math.random() * r);
 
 if (this.drawCount % random === 0) {
 this.drawCount = 0;

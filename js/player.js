@@ -54,11 +54,11 @@ function Player(ctx) {
 Player.prototype.move = function() {
 this.x += this.vx;
 
-if (this.x <= 0) {
-  this.x = 0;
+if (this.x <= this.ctx.canvas.width / 4) {
+  this.x = this.ctx.canvas.width / 4;
 }
-if (this.x + this.w >= this.ctx.canvas.width){
-  this.x = this.ctx.canvas.width - this.w;
+if (this.x + this.w >= this.ctx.canvas.width - this.ctx.canvas.width / 4){
+  this.x = this.ctx.canvas.width - this.ctx.canvas.width / 4 - this.w;
 }
 };
 
