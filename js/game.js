@@ -97,6 +97,7 @@ function Game(canvasElement) {
         enemy.bullets.forEach(function(bullet, i) {
           if (this.player.collide(bullet)) {
             enemy.bullets.splice(i, 1);
+            this.player.audioDead.play();
             if(this.player.lives.length === 1) {
               this.gameOver();
             } else {
@@ -180,19 +181,7 @@ function Game(canvasElement) {
         break;
     }
   };
-  
-  // Game.prototype.onKeyUp = function(code) {
-  //   switch(code) {
-  //     case this.PAUSE:
-  //       this.pause();
-  //       if(this.elementPause.inPause) {
-  //         this.elementPause.inPause = false;
-  //       } else {
-  //         this.elementPause.inPause = true;
-  //       }
-  //   }
-  // };
-  
+
   Game.prototype.setKeyboardListeners = function() {
     document.onkeydown = function(event) {
       this.player.onKeyDown(event.keyCode);

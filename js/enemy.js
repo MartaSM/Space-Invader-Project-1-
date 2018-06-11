@@ -16,7 +16,6 @@ function Enemy(ctx, x, y ) {
     this.drawCount = 0;
    
     this.bullets = [];
-
   }
   
   Enemy.prototype.draw = function() {

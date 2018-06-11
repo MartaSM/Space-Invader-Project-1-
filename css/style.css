@@ -1,3 +1,31 @@
-canvas{
-    border-style: solid;
+body{
+    margin: 0;
+    background-image: url("../img/back3.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background: black;
+    
+}
+.container {
+    margin: auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container img{
+    margin: auto;
+    width: 500px;
+    margin-top: 200px;
+}
+
+.start {
+    display: block;
+    text-decoration: none;
+    width: 400px;
+    color:white;
+    font-size: 25px;
+    margin: auto;
+    text-align: center;
+    margin-top: 200px;
 }

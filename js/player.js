@@ -20,8 +20,11 @@ function Player(ctx) {
     this.playerLives();
     this.lifeCounter = 3;
 
-    this.audio = document.createElement("audio")
-    this.audio.src = "sounds/shoot.wav";
+    this.audioShoot = document.createElement("audio")
+    this.audioShoot.src = "sounds/shoot.wav";
+
+    this.audioDead = document.createElement("audio")
+    this.audioDead.src = "sounds/explosion.wav";
   };
   
   Player.prototype.draw = function() {
@@ -59,7 +62,7 @@ if (this.x + this.w >= this.ctx.canvas.width){
 
 Player.prototype.shoot = function() {
     this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20, -5));
-    this.audio.play();
+    this.audioShoot.play();
 };
 
 
