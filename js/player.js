@@ -34,7 +34,7 @@ function Player(ctx) {
       this.img,
       0,
       this.img.height / 2.8,
-      this.img.width,
+      this.img.width - 10,
       this.img.height,
       this.x,
       this.y,
@@ -54,11 +54,11 @@ function Player(ctx) {
 Player.prototype.move = function() {
 this.x += this.vx;
 
-if (this.x <= this.ctx.canvas.width / 4) {
-  this.x = this.ctx.canvas.width / 4;
+if (this.x <= this.ctx.canvas.width / 5) {
+  this.x = this.ctx.canvas.width / 5;
 }
-if (this.x + this.w >= this.ctx.canvas.width - this.ctx.canvas.width / 4){
-  this.x = this.ctx.canvas.width - this.ctx.canvas.width / 4 - this.w;
+if (this.x + this.w >= this.ctx.canvas.width - this.ctx.canvas.width / 6.5){
+  this.x = this.ctx.canvas.width - this.ctx.canvas.width / 6.5 - this.w;
 }
 };
 
@@ -89,7 +89,7 @@ Player.prototype.collide = function(object) {
  Player.prototype.playerLives = function() {
    var distX = 0;
     for(i = 0; i < 3; i++) {
-      this.lives.push(new Life(this.ctx, this.ctx.canvas.width * 0.8 + distX));
+      this.lives.push(new Life(this.ctx, this.ctx.canvas.width * 0.88 + distX));
       distX += 60;
   };
  };

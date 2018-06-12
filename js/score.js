@@ -1,6 +1,6 @@
 function Score(ctx) {
     this.ctx = ctx;
-    this.x = 100;
+    this.x = 40;
     this.y = 80;
   
     this.score = 0;
