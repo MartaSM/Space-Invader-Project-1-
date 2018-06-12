@@ -57,8 +57,8 @@ this.x += this.vx;
 if (this.x <= this.ctx.canvas.width / 5) {
   this.x = this.ctx.canvas.width / 5;
 }
-if (this.x + this.w >= this.ctx.canvas.width - this.ctx.canvas.width / 6.5){
-  this.x = this.ctx.canvas.width - this.ctx.canvas.width / 6.5 - this.w;
+if (this.x + this.w >= this.ctx.canvas.width - this.ctx.canvas.width / 9.5){
+  this.x = this.ctx.canvas.width - this.ctx.canvas.width / 9.5 - this.w;
 }
 };
 
@@ -77,8 +77,8 @@ Player.prototype.shoot = function() {
 Player.prototype.collide = function(object) {
   if (this.y + this.h / 3 <= object.y + object.h &&
       this.y + this.h / 2 >= object.y &&
-      this.x <= object.x - object.w && 
-      this.x + this.w >= object.x + object.w) {
+      this.x <= object.x && 
+      this.x + this.w >= object.x) {
     return true;
   } else {
     return false;
@@ -89,7 +89,7 @@ Player.prototype.collide = function(object) {
  Player.prototype.playerLives = function() {
    var distX = 0;
     for(i = 0; i < 3; i++) {
-      this.lives.push(new Life(this.ctx, this.ctx.canvas.width * 0.88 + distX));
+      this.lives.push(new Life(this.ctx, this.ctx.canvas.width / 35 + distX));
       distX += 60;
   };
  };

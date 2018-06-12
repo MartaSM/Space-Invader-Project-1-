@@ -48,7 +48,7 @@ EnemiesCollection.prototype.move = function() {
     // this.drawCount === 0;
 
 
-    if(this.drawCount % 30 === 0){
+    if(this.drawCount % 20 === 0){
         this.invaders.forEach(function(row) {
             row.forEach(function(i) {
                 i.y += this.vy;
@@ -66,15 +66,15 @@ EnemiesCollection.prototype.generateInvaders = function() {
         if(i % 2 === 0){
             this.distX = 0;
         } else {
-            this.distX = 55;
+            this.distX = 60;
         }
-            
+        this.distY -= 80;   
             
         for(j = 0; j < 8; j++) {
             this.invaders[i][j] = new Enemy(this.ctx, this.x + this.distX, this.y + this.distY);
-            this.distX += 110;
+            this.distX += 120;
         }
-        this.distY -= 200;
+
     }
 };
 

@@ -5,7 +5,7 @@ function Life(ctx, x) {
     this.h = this.w * 1.5;
   
     this.x = x;
-    this.y = this.ctx.canvas.height * 0.08;
+    this.y = this.ctx.canvas.height * 0.2;
 
     this.img = new Image();
     this.img.src = "img/player.png";

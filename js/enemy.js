@@ -85,7 +85,7 @@ Enemy.prototype.drawBullets = function() {
 };
 
 Enemy.prototype.generateBullets = function() {
-var r = 5000;
+var r = 2000;
     
 
 var random = Math.floor(Math.random() * r);

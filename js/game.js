@@ -11,10 +11,9 @@ function Game(canvasElement) {
 
     this.elementPause = new Pause(this.ctx);
 
-    //this.gameOverPicture = new GameOver(this.ctx);
+    this.gameOverPicture = new GameOver(this.ctx);
   
     this.setKeyboardListeners();
-
 
   };
   
@@ -85,11 +84,11 @@ function Game(canvasElement) {
     var check = false;
     this.enemiesCollection.invaders.forEach(function(row) {
       check = row.some(function(enemy, index, array) {
-        return enemy.y >= (this.player.y - 110);
+        return enemy.y >= (this.player.y - this.player.h);
       }.bind(this));
     }.bind(this));
     return check;
-}
+  };
 
 
   Game.prototype.checkGameOver = function() {
@@ -132,13 +131,12 @@ function Game(canvasElement) {
 
   Game.prototype.win = function() {
     clearInterval(this.intervalId);
-    this.gameOverPicture.draw();
 
-    // if (confirm("CONGRATULATION! You win")) {
-    //   location.reload();
-    // }
+    if (confirm("CONGRATULATION! You win")) {
+      location.reload();
+    }
   
-    // this.score.score = 0;
+    this.score.score = 0;
   };
 
   Game.prototype.loseLife = function() {
@@ -151,14 +149,16 @@ function Game(canvasElement) {
   };
 
   Game.prototype.gameOver = function() {
+
     clearInterval(this.intervalId);
+    this.gameOverPicture.draw();
 
-  if (confirm("GAME OVER! Your score is: " + this.score.score + "\nPlay again?")) {
-    location.reload();
-  }
-
-  this.score.score = 0;
-   
+      this.ctx.font = "70px Courier New";
+      this.ctx.fillText("YOUR SCORE IS " + this.score.score , 350, 530);
+      this.ctx.font = "40px Courier New";
+      this.ctx.fillText("To play again, press enter", 400, 660);
+      this.ctx.fillStyle = "white";
+    
   };
 
 
@@ -175,12 +175,21 @@ function Game(canvasElement) {
   };
 
   Game.prototype.PAUSE = 27;
+  Game.prototype.START = 13;
 
   Game.prototype.onKeyDown = function(code) {
     switch(code) {
       case this.PAUSE:
         this.pause();
         break;
+      case this.START:
+        //if (confirm("GAME OVER! Your score is: " + this.score.score + "\nPlay again?")) {
+        location.reload();
+        this.start()
+        //}
+
+  this.score.score = 0;
+
     }
   };
 
