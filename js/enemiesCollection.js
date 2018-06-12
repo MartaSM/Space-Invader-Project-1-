@@ -48,7 +48,7 @@ EnemiesCollection.prototype.move = function() {
     // this.drawCount === 0;
 
 
-    if(this.drawCount % 15 === 0){
+    if(this.drawCount % 40 === 0){
         this.invaders.forEach(function(row) {
             row.forEach(function(i) {
                 i.y += this.vy;

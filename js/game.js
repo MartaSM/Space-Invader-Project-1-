@@ -12,6 +12,8 @@ function Game(canvasElement) {
     this.elementPause = new Pause(this.ctx);
 
     this.gameOverPicture = new GameOver(this.ctx);
+
+    this.winPicture = new Win(this.ctx);
   
     this.setKeyboardListeners();
 
@@ -31,6 +33,7 @@ function Game(canvasElement) {
       this.checkGameOver();
 
       this.checkGameOver2();
+
 
     }.bind(this), 16);
   };
@@ -132,11 +135,11 @@ function Game(canvasElement) {
   Game.prototype.win = function() {
     clearInterval(this.intervalId);
 
-    if (confirm("CONGRATULATION! You win")) {
-      location.reload();
-    }
-  
-    this.score.score = 0;
+      this.winPicture.draw();
+
+      this.ctx.font = "70px Courier New";
+      this.ctx.fillStyle = "white";
+      this.ctx.fillText("YOUR SCORE IS " + this.score.score , 200, 530);
   };
 
   Game.prototype.loseLife = function() {
@@ -154,11 +157,8 @@ function Game(canvasElement) {
     this.gameOverPicture.draw();
 
       this.ctx.font = "70px Courier New";
-      this.ctx.fillText("YOUR SCORE IS " + this.score.score , 360, 530);
-      this.ctx.font = "40px Courier New";
-      this.ctx.fillText("To play again, press enter", 360, 660);
-      this.ctx.fillStyle = "white";
-    
+      this.ctx.fillStyle = "green";
+      this.ctx.fillText("YOUR SCORE IS " + this.score.score , 200, 530);
   };
 
 

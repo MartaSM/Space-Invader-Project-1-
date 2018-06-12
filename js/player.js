@@ -63,14 +63,15 @@ if (this.x + this.w >= this.ctx.canvas.width - this.ctx.canvas.width / 9.5){
 };
 
 Player.prototype.shoot = function() { 
+  //this.shootControlTime();
+  this.shootControl = false; 
   this.bullets.push(new Bullet(this.ctx, this.x + this.w / 2 - 2, this.y - 20, -5));
   this.audioShoot.play();
-  // this.shootControlTime();
 };
 
 // Player.prototype.shootControlTime = function() {
 //   setTimeout(function(){ 
-//     this.shootControl = !this.shootControl; 
+//       this.shootControl = true;
 //   }, 1000);
 // }
 
@@ -121,14 +122,13 @@ Player.prototype.onKeyDown = function(code) {
     case this.LEFT:
       this.vx = -5 ;
       break;
-        //  
-      // if(this.shootControl){
-      //   this.shootControl = false; 
-      //   this.shoot();
-      // } else {
-      //   break;
-      // }
-      // break;
+    case this.SHOOT:  
+      if(this.shootControl){
+        this.shoot();
+      } else {
+        this.shootControl = true;
+      }
+      break;
   }
 };
 
@@ -138,8 +138,8 @@ Player.prototype.onKeyUp = function(code) {
     case this.LEFT:
       this.vx = 0;
       break;
-    case this.SHOOT:
-      this.shoot();
-      break;
+    // case this.SHOOT:
+    //   this.shoot();
+    //   break;
   }
 };
