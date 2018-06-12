@@ -3,7 +3,7 @@ function EnemiesCollection(ctx) {
     this.x0 = this.ctx.canvas.width / 5;
     this.x = this.x0;
     // this.y = this.ctx.canvas.height * 0.3;
-    this.y = this.ctx.canvas.height / 5;
+    this.y = this.ctx.canvas.height / 3;
 
     this.w = (this.ctx.canvas.width / 25) * 8;
     this.h = this.w / 8;
@@ -48,7 +48,7 @@ EnemiesCollection.prototype.move = function() {
     // this.drawCount === 0;
 
 
-    if(this.drawCount % 20 === 0){
+    if(this.drawCount % 15 === 0){
         this.invaders.forEach(function(row) {
             row.forEach(function(i) {
                 i.y += this.vy;

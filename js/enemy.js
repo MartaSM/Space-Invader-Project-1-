@@ -76,12 +76,17 @@ Enemy.prototype.drawBullets = function() {
   
   this.drawCount++;
 
-  this.generateBullets();
-  this.bullets.forEach(function(b) {
-    b.draw();
-  });
+  if(this.y >= this.ctx.canvas.height / 4) {
 
-  this.cleanBullets();
+    this.generateBullets();
+    this.bullets.forEach(function(b) {
+      b.draw();
+    });
+  
+    this.cleanBullets();
+  }
+
+
 };
 
 Enemy.prototype.generateBullets = function() {

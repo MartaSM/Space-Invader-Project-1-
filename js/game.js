@@ -154,9 +154,9 @@ function Game(canvasElement) {
     this.gameOverPicture.draw();
 
       this.ctx.font = "70px Courier New";
-      this.ctx.fillText("YOUR SCORE IS " + this.score.score , 350, 530);
+      this.ctx.fillText("YOUR SCORE IS " + this.score.score , 360, 530);
       this.ctx.font = "40px Courier New";
-      this.ctx.fillText("To play again, press enter", 400, 660);
+      this.ctx.fillText("To play again, press enter", 360, 660);
       this.ctx.fillStyle = "white";
     
   };
