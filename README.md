@@ -61,8 +61,12 @@ están más abajo
 - Movimiento horizontal.
 - Generación de más filas de invaders.
 - Generación de diferentes invaders que sumen diferentes puntos.
+- Incrementar la dificultad de una misma pantalla aumentando la velocidad de los enemigos progresivamente.
 - Obstáculos.
 - Nave final (que cause más daño al player).
+- Multipantalla (que aumente dificultad)
+- Multijugador.
+- Que guarde los puntos.
 
 #Bugs a solucionar:
 
